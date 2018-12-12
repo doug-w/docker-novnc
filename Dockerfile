@@ -9,6 +9,8 @@ ENV HOME=/root \
 	REMOTE_HOST=localhost \
 	REMOTE_PORT=5900
 
+ENV LISTEN_PORT 8081
+
 RUN apk --update --upgrade add git bash supervisor nodejs nodejs-npm \
 	&& git clone https://github.com/novnc/noVNC.git /root/noVNC \
 	&& git clone https://github.com/novnc/websockify /root/noVNC/utils/websockify \
@@ -24,6 +26,6 @@ RUN apk --update --upgrade add git bash supervisor nodejs nodejs-npm \
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 8081
+EXPOSE ${LISTEN_PORT}
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
