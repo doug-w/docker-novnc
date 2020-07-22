@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.12.0
 LABEL maintainer=doug.warren@gmail.com
 
 ENV HOME=/root \
@@ -9,7 +9,8 @@ ENV HOME=/root \
 	REMOTE_HOST=localhost \
 	REMOTE_PORT=5900
 
-RUN apk --update --upgrade add git bash supervisor nodejs nodejs-npm \
+RUN apk --update --upgrade add git bash supervisor nodejs nodejs-npm python3 \
+    && ln -s /usr/bin/python3 /usr/bin/python \
 	&& git clone https://github.com/novnc/noVNC.git /root/noVNC \
 	&& git clone https://github.com/novnc/websockify /root/noVNC/utils/websockify \
 	&& rm -rf /root/noVNC/.git \
